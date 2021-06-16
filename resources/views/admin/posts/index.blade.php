@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
-                        <td>Show</td>
+                        <td><a class="btn btn-success" href="{{ route('admin.posts.show', $post->id) }}">Show</a></td>
                         <td>Edit</td>
                         <td>Delete</td>
                     </tr>
