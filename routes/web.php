@@ -30,4 +30,6 @@ Route::prefix('admin')
         // ROTTA HOME ADMIN PANEL
         Route::get('/', 'HomeController@index')->name('home');
         // ROTTE RESOURCE POSTS
+
+        Route::resource('/posts', 'PostController');
     });
