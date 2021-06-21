@@ -13,7 +13,8 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 5; $i++) {
+        for($i = 0; $i < 5; $i++) 
+        {
             $new_post = new Post();
 
             $new_post->title = 'Post title ' . ($i + 1);
