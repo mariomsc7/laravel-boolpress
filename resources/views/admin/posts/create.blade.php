@@ -43,6 +43,22 @@
                             <div style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    {{-- SELECT OPTION CATEGORY --}}
+                    <div class="mb-3">
+                        <label for="category_id">Category</label>
+                        <select class="form-control" @error('categody_id') is-invalid @enderror    
+                             name="category_id" id="category_id">
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    @if($category->id == old('category_id')) selected @endif
+                                    >
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     {{-- SUBMIT --}}
                     <button type="submit" class="btn btn-primary">Create Post</button>
                 </form>
