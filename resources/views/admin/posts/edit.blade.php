@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-5">Create New Post</h1>
+        <h1 class="mb-5">
+            Edit:
+            <a href="{{ route('admin.posts.show', $post->id) }}">{{ $post->title }}</a>
+        </h1>
         {{-- ERRORI --}}
         <div class="col-md-8 offset-md-2">
             @if ($errors->any())
@@ -19,9 +22,9 @@
 
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <form action="{{ route('admin.posts.store') }}" method="POST">
+                <form action="{{ route('admin.posts.update', $post->id) }}" method="POST">
                     @csrf
-                    @method('POST')
+                    @method('PATCH')
                     {{-- TITLE --}}
                     <div class="mb-3">
                         {{-- 
@@ -29,7 +32,7 @@
                         --}}
                         <label for="title" class="form-label">Title*</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror"
-                            name="title" id="title" value="{{ old('title') }}">
+                            name="title" id="title" value="{{ old('title', $post->title) }}">
                         @error('title')
                             <div style="color: red">{{ $message }}</div>
                         @enderror
@@ -38,13 +41,13 @@
                     <div class="mb-3">
                         <label for="title" class="form-label">Content*</label>
                         <textarea class="form-control @error('content') is-invalid @enderror" 
-                            name="content" id="content" rows="5" value="{{ old('content') }}"></textarea>
+                            name="content" id="content" rows="5" value="{{ old('content', $post->content) }}"></textarea>
                         @error('content')
                             <div style="color: red">{{ $message }}</div>
                         @enderror
                     </div>
                     {{-- SUBMIT --}}
-                    <button type="submit" class="btn btn-primary">Create Post</button>
+                    <button type="submit" class="btn btn-primary">Update Post</button>
                 </form>
             </div>
         </div>
