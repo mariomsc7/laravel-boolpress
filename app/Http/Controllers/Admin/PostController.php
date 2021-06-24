@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -32,8 +33,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -49,7 +51,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|unique:posts|max:20',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id' // controllo id della select
+            'category_id' => 'nullable|exists:categories,id', // controllo id della select
+            'tags' => 'nullable|exists:tags,id'
         ], [
             'required' => 'The :attribute is required!',  // custom error messages
             'unique' => 'The :attribute is already in use!',
@@ -65,6 +68,12 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($data); // <-- fillable !!!
         $new_post->save();
+
+        // SALVA RELAZIONE CON TAGS IN TABELLA PIVOT
+        if(array_key_exists('tags', $data)) {
+            // table post_tag
+            $new_post->tags()->attach($data['tags']); // aggiunge nuovi records nella tabella pivot
+        }
 
         return redirect()->route('admin.posts.show', $new_post->id);
     }
@@ -92,16 +101,18 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::find($id);
+        //$post = Post::find($id);
         $categories = Category::all();
+        $tags = Tag::all();
+
 
         if(! $post) {
             abort(404);
         }
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -121,7 +132,8 @@ class PostController extends Controller
                 'max:255',
             ],
             'content' => 'required',
-            'category' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
         ], [
             'required' => 'The :attribute is required!',  // custom error messages
             'unique' => 'The :attribute is already in use!',

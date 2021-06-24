@@ -41,7 +41,7 @@
                     <div class="mb-3">
                         <label for="title" class="form-label">Content*</label>
                         <textarea class="form-control @error('content') is-invalid @enderror" 
-                            name="content" id="content" rows="5" value="{{ old('content', $post->content) }}"></textarea>
+                            name="content" id="content" rows="5">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <div style="color: red">{{ $message }}</div>
                         @enderror
@@ -62,6 +62,30 @@
                         </select>
                     </div>
 
+                    {{-- TAGS --}}
+                    <h4>Tags</h4>
+                    <div class="mb-3">
+                        @foreach ($tags as $tag)
+                            <span class="d-inline-block mr-3">
+                                <input type="checkbox" name="tags[]" id="tag{{ $loop->iteration }}"
+                                    value="{{ $tag->id }}" 
+                                    @if ($errors->any() && in_array($tag->id, old('tags', []))) 
+                                        checked
+                                    @elseif (! $errors->any() && $post->tags->contains($tag->id))     
+                                        checked
+                                    @endif
+                                 >
+                                <label for="tag{{ $loop->iteration }}">
+                                    {{ $tag->name }}
+                                </label>
+                            </span>
+                        @endforeach
+                        @error('tags')
+                            <div>{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    
                     {{-- SUBMIT --}}
                     <button type="submit" class="btn btn-primary">Update Post</button>
                 </form>
@@ -69,3 +93,5 @@
         </div>
     </div>
 @endsection
+
+
