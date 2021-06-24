@@ -13,12 +13,17 @@ class Post extends Model
         'content',
     ];
 
-    // DEFINIRE RELAZIONE CON CATEGORIES
+    // DEFINIRE RELAZIONE CON CATEGORIES posts - categories
 
     public function category() {
         return $this->belongsTo('App\Category');
     }
 
+
+    // RELAZIONE CON TAGS posts - tags
+    public function tags() {
+        return $this->belongsTo('App\Tag');
+    }
 }
 
 
