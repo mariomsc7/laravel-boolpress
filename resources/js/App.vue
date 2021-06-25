@@ -3,7 +3,10 @@
         <Header/>
 
         <main>
-            <h1>Homepage</h1>
+            <div class="container">
+                <h1>BLOG</h1>
+            </div>
+            
         </main>
     </div>
 </template>
@@ -20,6 +23,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../sass/utilities';
+
     body {
         font-family: sans-serif;
     }

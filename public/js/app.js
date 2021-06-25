@@ -1919,6 +1919,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -6415,7 +6418,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\n  font-family: sans-serif;\n}", ""]);
+exports.push([module.i, ".container {\n  max-width: 1170px;\n  margin: 0 auto;\n}\nbody {\n  font-family: sans-serif;\n}", ""]);
 
 // exports
 
@@ -38274,7 +38277,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("main", [_c("h1", [_vm._v("Homepage")])])
+    return _c("main", [
+      _c("div", { staticClass: "container" }, [_c("h1", [_vm._v("BLOG")])])
+    ])
   }
 ]
 render._withStripped = true
