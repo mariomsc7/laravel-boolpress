@@ -10,8 +10,17 @@
         <div class="mb-5">
             <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id) }}">Edit post</a>
         </div>
-        <div>
+        <div class="mb-5">
             <p>{{ $post->content }}</p>
         </div>
+
+        {{-- TAGS --}}
+        @dump($post->tags)
+        @if (count($post->tags) > 0)
+            <h4>Tags</h4>
+            @foreach ($post->tags as $tag) 
+                <span class="badge badge-primary">{{ $tag->name }}</span>
+            @endforeach
+        @endif
     </div>
 @endsection

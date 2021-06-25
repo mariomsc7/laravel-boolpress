@@ -151,6 +151,14 @@ class PostController extends Controller
 
         $post->update($data); // fillable
 
+        // AGGIORNA RELAZIONE TABELLA PIVOT
+        if(array_key_exists('tags', $data)) {
+            // aggiungere records tabella pivot
+            $post->tags()->sync($data['tags']);  // aggiunge/rimuove update
+        } else {
+            $post->tags()->detach(); // rimuove tutte le row(records) dalla pivot
+        }
+
         return redirect()->route('admin.posts.show', $post->id);
     }
 
@@ -163,6 +171,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
+        // pulizia orfani da tabella pivot  
+        $post->tags()->detach(); 
+
+
+        // remove
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('deleted', $post->title);
