@@ -1923,85 +1923,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   components: {
     Header: _components_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  data: function data() {
-    return {
-      posts: [],
-      paginations: {}
-    };
-  },
-  created: function created() {
-    this.getPosts();
-  },
-  methods: {
-    getPosts: function getPosts() {
-      var _this = this;
-
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      // GET POSTS FROM API
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts?page=".concat(page)).then(function (res) {
-        console.log(res.data);
-        _this.posts = res.data.data;
-        _this.pagination = {
-          current: res.data.current_page,
-          last: res.data.last_page
-        };
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    formatDate: function formatDate(date) {
-      var postDate = new Date(date);
-      var day = postDate.getDate();
-      var month = postDate.getMonth();
-      var year = postDate.getFullYear();
-
-      if (day < 10) {
-        day = '0' + day;
-      }
-
-      if (month < 10) {
-        month = '0' + month;
-      }
-
-      return "".concat(day, "/").concat(month, "/").concat(year);
-    }
   }
 });
 
@@ -38345,101 +38272,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("Header"),
-      _vm._v(" "),
-      _c("main", [
-        _c(
-          "div",
-          { staticClass: "container" },
-          [
-            _c("h1", [_vm._v("BLOG")]),
-            _vm._v(" "),
-            _vm._l(_vm.posts, function(post) {
-              return _c("div", { key: post.id }, [
-                _c("h2", [_vm._v(_vm._s(post.title))]),
-                _vm._v(" "),
-                _c("div", [_vm._v(_vm._s(_vm.formatDate(post.created_at)))]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "" } }, [_vm._v("Read more")])
-              ])
-            }),
-            _vm._v(" "),
-            _c(
-              "section",
-              { staticClass: "navigation" },
-              [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.pagination.current > 1,
-                        expression: "pagination.current > 1"
-                      }
-                    ],
-                    on: {
-                      click: function($event) {
-                        return _vm.getPosts(_vm.pagination.current - 1)
-                      }
-                    }
-                  },
-                  [_vm._v("\n                    Prev\n                ")]
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.pagination.last, function(i) {
-                  return _c(
-                    "button",
-                    {
-                      key: "page-" + i,
-                      class: { "active-page": i == _vm.pagination.current },
-                      on: {
-                        click: function($event) {
-                          return _vm.getPosts(i)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                " + _vm._s(i) + "\n                "
-                      )
-                    ]
-                  )
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.pagination.current < _vm.pagination.last,
-                        expression: "pagination.current < pagination.last"
-                      }
-                    ],
-                    on: {
-                      click: function($event) {
-                        return _vm.getPosts(_vm.pagination.current + 1)
-                      }
-                    }
-                  },
-                  [_vm._v("\n                    Next\n                ")]
-                )
-              ],
-              2
-            )
-          ],
-          2
-        )
-      ])
-    ],
-    1
-  )
+  return _c("div", [_c("Header"), _vm._v(" "), _c("main")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
