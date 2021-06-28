@@ -15,7 +15,7 @@
         </div>
 
         {{-- TAGS --}}
-        @dump($post->tags)
+        
         @if (count($post->tags) > 0)
             <h4>Tags</h4>
             @foreach ($post->tags as $tag) 
